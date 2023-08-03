@@ -111,6 +111,20 @@ static int file_type = FORMAT_DEFAULT;
 static int open_mode = 0;
 static snd_pcm_stream_t stream = SND_PCM_STREAM_PLAYBACK;
 static int mmap_flag = 0;
+/**
+该代码片段中的代码根据`mmap_flag`的值选择不同的音频读写函数。这里的`mmap_flag`是一个布尔类型的变量，用于标识是否启用内存映射（Memory Mapping）模式进行音频数据的读写。
+
+如果`mmap_flag`为`true`，则使用`snd_pcm_mmap_writei()`和`snd_pcm_mmap_readi()`等内存映射模式下的音频读写函数；
+
+否则，使用`snd_pcm_writei()`和`snd_pcm_readi()`等传统的音频读写函数。
+
+内存映射模式是一种高效的音频读写方式，它可以将音频数据直接映射到内存中，避免了频繁的数据拷贝操作，提高了音频数据的读写效率。在使用内存映射模式时，
+
+需要首先调用`snd_pcm_mmap_begin()`函数进行初始化，并在读写完成后调用`snd_pcm_mmap_commit()`函数提交数据。
+
+需要注意的是，内存映射模式不适用于所有的音频设备和场景，应该根据实际情况选择适合的音频读写方式。
+*/
+
 static int interleaved = 1;
 /**
 在音频处理中，Interleaved（交错）是指多声道音频数据中每个采样点的不同声道数据在存储时是交错存储的。
