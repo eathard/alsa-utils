@@ -359,7 +359,23 @@ static void device_list(void)
 	}
 }
 
-static void pcm_list(void)
+/**
+
+这段代码定义了一个名为pcm_list的静态函数，用于列出系统中所有可用的PCM设备。
+
+该函数使用了ALSA库中的函数snd_device_name_hint()和snd_device_name_get_hint()来获取系统中的音频设备信息，并输出到标准输出流中。
+
+在函数内部，首先调用snd_device_name_hint()函数获取系统中所有的音频设备信息，
+
+然后遍历该信息列表，对于每一个音频设备，使用snd_device_name_get_hint()函数获取设备名称、描述以及输入/输出类型等信息，
+
+并将其输出到标准输出流中。在输出设备描述信息时，该函数会将描述字符串中的换行符替换成空格，以保证输出格式的正确性。
+
+最后，该函数会释放使用snd_device_name_hint()函数获取的设备信息内存，并返回。该函数通常用于在终端中列出可用的PCM设备，以便用户选择合适的设备进行音频播放或录制。
+
+*/
+
+static void pcm_list(void)  // aplay -L
 {
 	void **hints, **n;
 	char *name, *descr, *descr1, *io;
@@ -846,11 +862,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (do_device_list) {     //  aply -L 可以提供更详细的信息
-		if (do_pcm_list) pcm_list();
+	if (do_device_list) {     //  aply -l 选项
+		if (do_pcm_list) pcm_list();   // -L 选项
 		device_list();
 		goto __end;
-	} else if (do_pcm_list) {   // aplay -l 提供简略的信息
+	} else if (do_pcm_list) {   // aplay -L
 		pcm_list();
 		goto __end;
 	}
