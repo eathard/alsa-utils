@@ -261,12 +261,28 @@ _("Usage: %s [OPTION]... [FILE]...\n"
 	在使用GNU gettext进行本地化处理之后，该字符串会被翻译成适合目标语言的字符串，并在程序运行时自动加载相应的语言包。这种方式使得程序能够在不同地区和语言环境中正确地显示本地化的字符串，提高了程序的可移植性和可扩展性。
  	
   	*/
+
+/**
+
+这段代码使用了ALSA库中的函数`snd_pcm_format_name()`来获取支持的音频格式名称，并依次输出到标准输出流中。该循环枚举了所有可能的音频格式，从0开始遍历到`SND_PCM_FORMAT_LAST`（ALSA库定义的最大音频格式值），并调用`snd_pcm_format_name()`函数获取对应格式的名称。如果获取到了名称，则使用`printf`函数将其输出到标准输出流中。
+
+`snd_pcm_format_name()`函数是ALSA库中的函数，用于将给定的音频格式枚举值转换为对应的音频格式名称。该函数的定义如下：
+
+const char *snd_pcm_format_name(snd_pcm_format_t format);
+
+其中，`format`是要获取名称的音频格式枚举值。如果指定的枚举值代表了一个已知的音频格式，则函数返回该格式的名称，否则返回`NULL`。例如，`snd_pcm_format_name(SND_PCM_FORMAT_S16_LE)`将返回字符串`"S16_LE"`，代表了16位有符号小端格式的音频数据。
+
+**/
+
 	for (k = 0; k <= SND_PCM_FORMAT_LAST; ++k) {
 		const char *s = snd_pcm_format_name(k);
 		if (s)
 			printf(" %s", s);
 	}
 	printf(_("\nSome of these may not be available on selected hardware\n"));
+
+	/*  下边是一些缩写方式 */
+	
 	printf(_("The available format shortcuts are:\n"));
 	printf(_("-f cd (16 bit little endian, 44100, stereo)\n"));
 	printf(_("-f cdr (16 bit big endian, 44100, stereo)\n"));
