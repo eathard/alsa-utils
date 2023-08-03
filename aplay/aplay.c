@@ -219,38 +219,48 @@ _("Usage: %s [OPTION]... [FILE]...\n"
 "-r, --rate=#            sample rate\n"
 "-d, --duration=#        interrupt after # seconds\n"
 "-s, --samples=#         interrupt after # samples per channel\n"
-"-M, --mmap              mmap stream\n"
-"-N, --nonblock          nonblocking mode\n"
+"-M, --mmap              mmap stream\n"   // 这个含义是什么？
+"-N, --nonblock          nonblocking mode\n"  //这个是什么含义
 "-F, --period-time=#     distance between interrupts is # microseconds\n"
 "-B, --buffer-time=#     buffer duration is # microseconds\n"
 "    --period-size=#     distance between interrupts is # frames\n"
 "    --buffer-size=#     buffer duration is # frames\n"
-"-A, --avail-min=#       min available space for wakeup is # microseconds\n"
+"-A, --avail-min=#       min available space for wakeup is # microseconds\n"   //可以防止pop声音吗？
 "-R, --start-delay=#     delay for automatic PCM start is # microseconds \n"
 "                        (relative to buffer size if <= 0)\n"
 "-T, --stop-delay=#      delay for automatic PCM stop is # microseconds from xrun\n"
-"-v, --verbose           show PCM structure and setup (accumulative)\n"
+"-v, --verbose           show PCM structure and setup (accumulative)\n"   // 什么意思？
 "-V, --vumeter=TYPE      enable VU meter (TYPE: mono or stereo)\n"
 "-I, --separate-channels one file for each channel\n"
-"-i, --interactive       allow interactive operation from stdin\n"
+"-i, --interactive       allow interactive operation from stdin\n"      //可以通过标准输入来操作这个软件
 "-m, --chmap=ch1,ch2,..  Give the channel map to override or follow\n"
 "    --disable-resample  disable automatic rate resample\n"
 "    --disable-channels  disable automatic channel conversions\n"
 "    --disable-format    disable automatic format conversions\n"
-"    --disable-softvol   disable software volume control (softvol)\n"
+"    --disable-softvol   disable software volume control (softvol)\n"   // 音量控制
 "    --test-position     test ring buffer position\n"
-"    --test-coef=#       test coefficient for ring buffer position (default 8)\n"
+"    --test-coef=#       test coefficient for ring buffer position (default 8)\n"  // 环形缓冲区是干什么的
 "                        expression for validation is: coef * (buffer_size / 2)\n"
-"    --test-nowait       do not wait for ring buffer - eats whole CPU\n"
+"    --test-nowait       do not wait for ring buffer - eats whole CPU\n"           // 什么意思
 "    --max-file-time=#   start another output file when the old file has recorded\n"
 "                        for this many seconds\n"
-"    --process-id-file   write the process ID here\n"
-"    --use-strftime      apply the strftime facility to the output file name\n"
+"    --process-id-file   write the process ID here\n"                         // 什么意思
+"    --use-strftime      apply the strftime facility to the output file name\n"  /* strftime是一个C语言标准库函数，用于将时间和日期格式化成指定的字符串形式。 */
 "    --dump-hw-params    dump hw_params of the device\n"
 "    --fatal-errors      treat all errors as fatal\n"
   )
 		, command);
 	printf(_("Recognized sample formats are:"));
+	
+	/*
+ 
+	`_`是一个在GNU gettext国际化（i18n）系统中常用的宏，用于对字符串进行本地化（即将其翻译成不同的语言）。这个宏在C程序中通常被定义为：
+	#define _(String) gettext (String)
+	其中，`String`是要本地化的字符串。在编写C程序时，常常使用`_()`宏来标记需要本地化的字符串，例如：
+	printf(_("Hello, world!\n"));
+	在使用GNU gettext进行本地化处理之后，该字符串会被翻译成适合目标语言的字符串，并在程序运行时自动加载相应的语言包。这种方式使得程序能够在不同地区和语言环境中正确地显示本地化的字符串，提高了程序的可移植性和可扩展性。
+ 	
+  	*/
 	for (k = 0; k <= SND_PCM_FORMAT_LAST; ++k) {
 		const char *s = snd_pcm_format_name(k);
 		if (s)
