@@ -900,7 +900,7 @@ int main(int argc, char *argv[])
 			fprintf(stderr, _("Try `%s --help' for more information.\n"), command);
 			return 1;
 		}
-	}
+	}/** 参数解析结束 */
 
 	if (do_device_list) {     //  aply -l 选项
 		if (do_pcm_list) pcm_list();   // -L 选项
