@@ -451,6 +451,20 @@ static void signal_handler(int sig)
 		prg_exit(EXIT_FAILURE);
 	}
 	signal(sig, SIG_DFL);
+	/**
+	signal(sig, SIG_DFL)这一行代码的作用是将信号sig的处理函数设置为默认处理函数。
+	
+	SIG_DFL是一个宏定义，表示默认的信号处理函数。
+	
+	将信号处理函数设置为默认处理函数意味着当接收到该信号时，操作系统会采取默认的处理方式，而不是调用用户自定义的信号处理函数。
+	
+	这通常用于恢复某些信号的默认处理行为，以便程序能够正常运行。
+
+	需要注意的是，signal()函数在处理信号时可能会出现一些问题，因此在Linux系统中通常建议使用更加安全和可靠的sigaction()函数来设置信号处理函数。
+	
+	sigaction()函数提供了更加灵活和可靠的信号处理方式，可以更好地保证程序的稳定性和安全性。
+	*/
+
 }
 
 /* call on SIGUSR1 signal. */
