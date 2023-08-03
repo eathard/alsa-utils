@@ -92,9 +92,9 @@ static snd_pcm_sframes_t (*readn_func)(snd_pcm_t *handle, void **bufs, snd_pcm_u
 static snd_pcm_sframes_t (*writen_func)(snd_pcm_t *handle, void **bufs, snd_pcm_uframes_t size);
 
 enum {
-	VUMETER_NONE,
-	VUMETER_MONO,
-	VUMETER_STEREO
+	VUMETER_NONE,  
+	VUMETER_MONO,  // 单条音量表 ，音量表是一种跟随音乐播放显示声音大小的东西。
+	VUMETER_STEREO // 双条音量表 
 };
 
 static char *command;
@@ -229,7 +229,7 @@ _("Usage: %s [OPTION]... [FILE]...\n"
 "-R, --start-delay=#     delay for automatic PCM start is # microseconds \n"
 "                        (relative to buffer size if <= 0)\n"
 "-T, --stop-delay=#      delay for automatic PCM stop is # microseconds from xrun\n"
-"-v, --verbose           show PCM structure and setup (accumulative)\n"   // 什么意思？
+"-v, --verbose           show PCM structure and setup (accumulative)\n"   // 显示详细信息，可以叠加使用， -vv 可以显示比 -v 更精细的信息
 "-V, --vumeter=TYPE      enable VU meter (TYPE: mono or stereo)\n"
 "-I, --separate-channels one file for each channel\n"
 "-i, --interactive       allow interactive operation from stdin\n"      //可以通过标准输入来操作这个软件
