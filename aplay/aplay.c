@@ -105,13 +105,25 @@ static struct {
 	unsigned int rate;
 } hwparams, rhwparams;
 static int timelimit = 0;
-static int sampleslimit = 0;
+static int sampleslimit = 0;  // 采样个数限制 和 duration 二选一
 static int quiet_mode = 0;
 static int file_type = FORMAT_DEFAULT;
 static int open_mode = 0;
 static snd_pcm_stream_t stream = SND_PCM_STREAM_PLAYBACK;
 static int mmap_flag = 0;
 static int interleaved = 1;
+/**
+在音频处理中，Interleaved（交错）是指多声道音频数据中每个采样点的不同声道数据在存储时是交错存储的。
+
+例如，对于双声道音频，交错存储方式将左声道和右声道的采样点交错存储在一起，即LRLRLR...或RLRLRL...的方式，其中L表示左声道的采样点，R表示右声道的采样点。
+
+与交错存储相对的是Non-interleaved（非交错）存储方式，它是指多声道音频数据中每个声道的数据是连续存储的。
+
+例如，对于双声道音频，非交错存储方式将左声道和右声道的采样点分别存储在两个不同的数据块中，即LL...和RR...的方式。
+
+交错存储方式在多声道音频处理中比较常见，它可以提高音频数据的读取和存储效率。在处理交错存储的音频数据时，需要注意对数据进行正确的解交错操作，以获取每个声道的数据。
+
+*/
 static int nonblock = 0;
 static volatile sig_atomic_t in_aborting = 0;
 static u_char *audiobuf = NULL;
@@ -659,7 +671,7 @@ int main(int argc, char *argv[])
 				return 1;
 			}
 			break;
-		case 'c':
+		case 'c':  // 使用 -c 填充 rhwparams 结构体
 			rhwparams.channels = parse_long(optarg, &err);
 			if (err < 0) {
 				error(_("invalid channels argument '%s'"), optarg);
@@ -699,7 +711,7 @@ int main(int argc, char *argv[])
 			}
 			if (tmp < 1000)
 				tmp *= 1000;
-			rhwparams.rate = tmp;
+			rhwparams.rate = tmp;  // rate是指音频采样率，它表示每秒钟采集或播放的音频数据的样本数, 单位为hz，如44100hz
 			if (tmp < 2000 || tmp > 768000) {
 				error(_("bad speed value %i"), tmp);
 				return 1;
