@@ -846,11 +846,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (do_device_list) {
+	if (do_device_list) {     //  aply -L 可以提供更详细的信息
 		if (do_pcm_list) pcm_list();
 		device_list();
 		goto __end;
-	} else if (do_pcm_list) {
+	} else if (do_pcm_list) {   // aplay -l 提供简略的信息
 		pcm_list();
 		goto __end;
 	}
