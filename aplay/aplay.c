@@ -582,7 +582,7 @@ int main(int argc, char *argv[])
 #endif
 		{0, 0, 0, 0}
 	};
-	char *pcm_name = "default";
+	char *pcm_name = "default";  // 默认是default，但可以通过 aplay -D 参数修改 ，查看default是什么可以执行aplay -L 
 	int tmp, err, c;
 	int do_device_list = 0, do_pcm_list = 0, force_sample_format = 0;
 	snd_pcm_info_t *info;
