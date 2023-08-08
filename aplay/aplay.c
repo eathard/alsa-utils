@@ -500,6 +500,7 @@ static void signal_handler_recycle (int sig)
 	recycle_capture_file = 1;
 }
 
+
 enum {
 	OPT_VERSION = 1,
 	OPT_PERIOD_SIZE,
